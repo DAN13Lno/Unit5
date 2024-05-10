@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class Target : MonoBehaviour
@@ -12,6 +13,8 @@ public class Target : MonoBehaviour
     private float xRange = 4;
     private float ySpawwnPos = -6;
 
+    public ParticleSystem explosionParticle;
+    public int PointValue;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,16 +37,15 @@ public class Target : MonoBehaviour
     private void OnMouseDown()
     {
         Destroy(gameObject);
+        Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+
     }
 
-    private void OnMouseUp()
-    {
-        Destroy(gameObject);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        gameManager.GameOver();
     }
     Vector3 RandomForce()
     {
